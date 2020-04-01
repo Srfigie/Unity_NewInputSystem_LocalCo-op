@@ -7,9 +7,6 @@ public class Mover : MonoBehaviour
     [SerializeField]
     private float MoveSpeed = 3f;
 
-    [SerializeField]
-    private int playerIndex = 0;
-
     private CharacterController controller;
 
     private Vector3 moveDirection = Vector3.zero;
@@ -18,11 +15,6 @@ public class Mover : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-    }
-
-    public int GetPlayerIndex()
-    {
-        return playerIndex;
     }
 
     public void SetInputVector(Vector2 direction)
