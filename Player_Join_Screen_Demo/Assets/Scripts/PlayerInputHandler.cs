@@ -14,7 +14,8 @@ public class PlayerInputHandler : MonoBehaviour
     private MeshRenderer playerMesh;
 
     private PlayerControls controls;
-    private void Start()
+
+    private void Awake()
     {
         mover = GetComponent<Mover>();
         controls = new PlayerControls();

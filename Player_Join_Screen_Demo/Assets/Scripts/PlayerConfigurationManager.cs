@@ -7,25 +7,24 @@ using UnityEngine.SceneManagement;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-    private static List<PlayerConfiguration> playerConfigs;
+    private List<PlayerConfiguration> playerConfigs;
     [SerializeField]
-    private static int MaxPlayers = 2;
+    private int MaxPlayers = 2;
+
+    public static PlayerConfigurationManager Instance { get; private set; }
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
-        playerConfigs = new List<PlayerConfiguration>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if(Instance != null)
+        {
+            Debug.Log("[Singleton] Trying to instantiate a seccond instance of a singleton class.");
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(Instance);
+            playerConfigs = new List<PlayerConfiguration>();
+        }
         
     }
 
@@ -40,17 +39,17 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
     }
 
-    public static List<PlayerConfiguration> GetPlayerConfigs()
+    public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return playerConfigs;
     }
 
-    public static void SetPlayerColor(int index, Material color)
+    public void SetPlayerColor(int index, Material color)
     {
         playerConfigs[index].playerMaterial = color;
     }
 
-    public static void ReadyPlayer(int index)
+    public void ReadyPlayer(int index)
     {
         playerConfigs[index].isReady = true;
         if (playerConfigs.Count == MaxPlayers && playerConfigs.All(p => p.isReady == true))
