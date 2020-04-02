@@ -14,19 +14,12 @@ public class SpawnPlayerSetupMenu : MonoBehaviour
     private void Awake()
     {
         rootMenu = GameObject.Find("MainLayout");
-        var menu = Instantiate(playerSetupMenuPrefab, rootMenu.transform);
-        input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
-        menu.GetComponent<PlayerSetupMenuController>().setPlayerIndex(input.playerIndex);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if(rootMenu != null)
+        {
+            var menu = Instantiate(playerSetupMenuPrefab, rootMenu.transform);
+            input.uiInputModule = menu.GetComponentInChildren<InputSystemUIInputModule>();
+            menu.GetComponent<PlayerSetupMenuController>().setPlayerIndex(input.playerIndex);
+        }
         
     }
 }
