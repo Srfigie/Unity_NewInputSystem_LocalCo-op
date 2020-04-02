@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-    private static List<PlayerInput> playerInputs;
     private static List<PlayerConfiguration> playerConfigs;
     [SerializeField]
     private static int MaxPlayers = 2;
@@ -15,7 +14,6 @@ public class PlayerConfigurationManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
-        playerInputs = new List<PlayerInput>();
         playerConfigs = new List<PlayerConfiguration>();
     }
 
@@ -34,7 +32,6 @@ public class PlayerConfigurationManager : MonoBehaviour
     public void HandlePlayerJoin(PlayerInput pi)
     {
         Debug.Log("player joined " + pi.playerIndex);
-        playerInputs.Add(pi);
         pi.transform.SetParent(transform);
 
         if(!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
@@ -56,7 +53,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     public static void ReadyPlayer(int index)
     {
         playerConfigs[index].isReady = true;
-        if (playerInputs.Count == MaxPlayers && playerConfigs.All(p => p.isReady == true))
+        if (playerConfigs.Count == MaxPlayers && playerConfigs.All(p => p.isReady == true))
         {
             SceneManager.LoadScene("SampleScene");
         }
